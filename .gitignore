@@ -1,2 +1,14 @@
-_build
+# Build outputs
+build/
+_build/
+
+# OS files
 .DS_Store
+
+# Editor files
+*.swp
+*~
+
+# Simulation artifacts
+*.vvp
+*.vcd

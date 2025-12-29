@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install apio
+        run: |
+          pip install apio
+          apio packages --install oss-cad-suite
+
+      - name: Lint
+        run: apio lint
+
+      - name: Build
+        run: apio build
+
+      - name: Run simulation
+        run: |
+          # Run simulation without GTKWave (apio sim launches gtkwave by default)
+          apio sim --no-gtkwave
+
+      - name: Verify simulation passed
+        run: |
+          # Check that simulation completed without errors
+          # The simulation output is captured in the previous step
+          # apio sim returns non-zero exit code on failure
+          echo "Simulation completed successfully"
