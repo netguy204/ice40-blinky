@@ -16,6 +16,6 @@ module blinky (
 
   always_ff @(posedge CLK) counter <= counter + 1'd1;
 
-  assign {LED4, LED3, LED2, LED1, LED0} = counter[26:21];
+  assign {LED4, LED3, LED2, LED1, LED0} = counter[26:22];
 
 endmodule
