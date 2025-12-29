@@ -33,6 +33,11 @@ synth: | $(BUILD_DIR)
 sim: | $(BUILD_DIR)
 	apio sim
 
+# Run simulation without GTKWave (for CI/testing)
+.PHONY: test
+test: | $(BUILD_DIR)
+	apio sim --no-gtkwave
+
 # Program the FPGA
 .PHONY: prog
 prog: synth
@@ -65,7 +70,8 @@ help:
 	@echo "Available targets:"
 	@echo "  all      - Build bitstream (default)"
 	@echo "  synth    - Synthesize and generate bitstream"
-	@echo "  sim      - Run simulation"
+	@echo "  sim      - Run simulation with GTKWave"
+	@echo "  test     - Run simulation without GTKWave"
 	@echo "  prog     - Program FPGA (upload)"
 	@echo "  timing   - Run timing analysis"
 	@echo "  lint     - Lint the design"

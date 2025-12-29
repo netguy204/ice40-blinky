@@ -1,0 +1,41 @@
+# -----------------------------------------------------------------------------
+# iCEStick constraint file (.pcf)
+# Lattice iCEstick Evaluation Kit (iCE40HX1K)
+# -----------------------------------------------------------------------------
+
+# ------------ System Clock ---------------------------------------------------
+# 12 MHz oscillator
+set_io -nowarn CLK 21
+
+# ------------ User LEDs ------------------------------------------------------
+# Active-high LEDs on the iCEStick (active-low accent LED D5 optional)
+set_io -nowarn LED0 99   # D1 (active-high)
+set_io -nowarn LED1 98   # D2 (active-high)
+set_io -nowarn LED2 97   # D3 (active-high)
+set_io -nowarn LED3 96   # D4 (active-high)
+set_io -nowarn LED4 95   # D5 (active-high, accent LED)
+
+# ------------ IrDA transceiver -----------------------------------------------
+set_io -nowarn IR_TX 105
+set_io -nowarn IR_RX 106
+set_io -nowarn IR_SD 107
+
+# ------------ PMOD connector -------------------------------------------------
+# Active-high accent LED accent accent accent accent accent accent accent accent
+set_io -nowarn PMOD1  78   # directly accent accent accent accent accent accent
+set_io -nowarn PMOD2  79
+set_io -nowarn PMOD3  80
+set_io -nowarn PMOD4  81
+set_io -nowarn PMOD7  87
+set_io -nowarn PMOD8  88
+set_io -nowarn PMOD9  90
+set_io -nowarn PMOD10 91
+
+# ------------ FTDI serial interface ------------------------------------------
+set_io -nowarn RX 9    # FTDI -> FPGA
+set_io -nowarn TX 8    # FPGA -> FTDI
+set_io -nowarn RTS 7   # active-low
+set_io -nowarn CTS 4   # active-low
+set_io -nowarn DTR 3   # active-low
+set_io -nowarn DSR 2   # active-low
+set_io -nowarn DCD 1   # active-low
