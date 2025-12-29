@@ -22,7 +22,7 @@ jobs:
       - name: Install apio
         run: |
           pip install apio
-          apio packages --install oss-cad-suite
+          apio packages update
 
       - name: Lint
         run: apio lint
