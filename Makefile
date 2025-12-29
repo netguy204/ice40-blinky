@@ -1,4 +1,4 @@
-# Makefile for Alhambra II FPGA (iCE40HX4K)
+# Makefile for Lattice iCEstick (iCE40HX1K)
 # Uses apio toolchain
 
 # Project configuration
@@ -13,7 +13,7 @@ BUILD_DIR := build
 # Source files
 RTL_SOURCES := $(wildcard $(RTL_DIR)/*.sv)
 TB_SOURCES := $(wildcard $(TB_DIR)/*.sv)
-PCF_FILE := $(CONSTRAINTS_DIR)/alhambra-ii.pcf
+PCF_FILE := $(CONSTRAINTS_DIR)/icestick.pcf
 
 # Default target
 .PHONY: all
