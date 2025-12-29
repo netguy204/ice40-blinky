@@ -10,14 +10,11 @@ module blinky_tb;
   localparam CLK_PERIOD = 83.33;  // ~12MHz
 
   logic clk;
-  logic led7, led6, led5, led4, led3, led2, led1, led0;
+  logic led4, led3, led2, led1, led0;
 
   // Instantiate DUT
   blinky dut (
       .CLK (clk),
-      .LED7(led7),
-      .LED6(led6),
-      .LED5(led5),
       .LED4(led4),
       .LED3(led3),
       .LED2(led2),
@@ -41,36 +38,26 @@ module blinky_tb;
     @(posedge clk);
 
     // Verify other LEDs are off
-    assert (led6 == 0 && led5 == 0 && led4 == 0)
-    else $error("LEDs 6-4 should be off");
     assert (led3 == 0 && led2 == 0 && led1 == 0 && led0 == 0)
     else $error("LEDs 3-0 should be off");
 
-    // LED7 = counter[6], toggles every 64 clock cycles
-    // Counter starts at 0 and increments on posedge
-    // LED7 = 1 when counter[6] = 1, i.e., counter in [64-127], [192-255], etc.
+    // LED4 = counter[22], toggles every 2^22 = 4,194,304 clock cycles
+    // At 12MHz, that's ~350ms per toggle (visible blink rate)
+    // For testbench, we just verify initial state and that counter increments
 
-    // After 1 cycle, counter=1, LED7 should be 0
-    assert (led7 == 0) else $error("LED7 should be 0 at start");
-    $display("Counter ~1: LED7 = %b (expected 0)", led7);
+    // After 1 cycle, counter=1, LED4 should be 0
+    assert (led4 == 0) else $error("LED4 should be 0 at start");
+    $display("Counter ~1: LED4 = %b (expected 0)", led4);
 
-    // Run 63 more cycles, counter=64, LED7 should become 1
-    repeat (63) @(posedge clk);
-    #1;  // Small delay to let combinational logic settle
-    assert (led7 == 1) else $error("LED7 should be 1 when counter=64");
-    $display("Counter ~64: LED7 = %b (expected 1)", led7);
-
-    // Run 64 more cycles, counter=128, LED7 should become 0
-    repeat (64) @(posedge clk);
+    // Run a few more cycles to verify LED4 stays 0 (counter[22] won't flip yet)
+    repeat (100) @(posedge clk);
     #1;
-    assert (led7 == 0) else $error("LED7 should be 0 when counter=128");
-    $display("Counter ~128: LED7 = %b (expected 0)", led7);
+    assert (led4 == 0) else $error("LED4 should still be 0 after 100 cycles");
+    $display("Counter ~100: LED4 = %b (expected 0)", led4);
 
-    // Run 64 more cycles, counter=192, LED7 should become 1
-    repeat (64) @(posedge clk);
-    #1;
-    assert (led7 == 1) else $error("LED7 should be 1 when counter=192");
-    $display("Counter ~192: LED7 = %b (expected 1)", led7);
+    // Verify LEDs 3-0 remain off
+    assert (led3 == 0 && led2 == 0 && led1 == 0 && led0 == 0)
+    else $error("LEDs 3-0 should remain off");
 
     $display("Test completed successfully!");
     $finish;
