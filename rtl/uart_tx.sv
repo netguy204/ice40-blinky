@@ -15,7 +15,7 @@ module uart_tx #(
 );
 
   // Cycles per bit (rounded)
-  localparam CYCLES_PER_BIT = CLK_FREQ / BAUD_RATE;  // ~104 for 12MHz/115200
+  localparam logic [6:0] CYCLES_PER_BIT = 7'(CLK_FREQ / BAUD_RATE);  // ~104 for 12MHz/115200
 
   // States
   typedef enum logic [1:0] {
